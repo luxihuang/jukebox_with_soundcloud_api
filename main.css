@@ -3,13 +3,24 @@
 	margin-right: 5%;
 }
 
-.jukebox_buttons{
-	margin-left: 40%;
-}
-
 h1{
 	font-size: 40px;
 	text-align: center;
 	margin-bottom: 1%;
 }
 
+.jukebox_buttons{
+	margin-left: 40%;
+}
+
+.JukeBox{
+	margin-top: 1%;
+}
+
+.css-artwork{
+	margin: 0 auto;
+}
+
+.css-audio-title{
+	text-align: center;	
+}

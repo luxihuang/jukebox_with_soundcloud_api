@@ -13,14 +13,16 @@
 		<div class="container">
 			<h1>Jukebox Using SoundCloud API</h1>
 			<div class="search">
-				<input id="js-search-input" type="text" name="search" placeholder="Search for a song...">
+				<input id="q" type="text" name="search" placeholder="Search for a song...">
+				<button id="js-searchButton">Search</button>
 			</div>
 
 			<div class="JukeBox">
-			 	<video id="js-Video" width="80%">
-					<source src="bunny.mp4" type="video/mp4">
-					<source src="bummy.ogg" type="video/ogg">
-		 		</video>
+				<div id="js-audio">
+					<img id="js-audio-artwork" class="css-artwork" src="">
+				
+					<h4 id="js-audio-title" class="css-audio-title"></h4>
+		 		</div> 
 
 			 	<div class = "JukeBox_buttons">
 			 		<button id="js-previousButton">Previous</button>

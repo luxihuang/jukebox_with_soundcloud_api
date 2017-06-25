@@ -2,102 +2,113 @@ SC.initialize({
   client_id: 'fd4e76fc67798bfa742089ed619084a6'
 });
 
-
 var JukeBox = {
     songs:[],
-    currentSongId: 0,
+    songIndex: 0,
     previousTime: 0,
 
     init: function() {
         var _this = this;  //making the object available to the methods
-        this.searchInput = document.getElementById("js-search-input");
-        this.video = document.getElementById("js-Video");
-        this.playButton = document.getElementById("js-playButton");
-        this.stopButton = document.getElementById("js-stopButton");
-        this.nextButton = document.getElementById("js-nextButton");
-        this.previousButton = document.getElementById("js-previousButton");
+        var searchInput = document.getElementById("q");
+        var audio = document.getElementById("js-audio");
+        var searchButton = document.getElementById("js-searchButton");
+        var playButton = document.getElementById("js-playButton");
+        var stopButton = document.getElementById("js-stopButton");
+        var nextButton = document.getElementById("js-nextButton");
+        var previousButton = document.getElementById("js-previousButton");
+        this.songArtWorkImage = document.getElementById("js-audio-artwork");
+        this.songTitle = document.getElementById("js-audio-title");
    
-        this.playButton.addEventListener("click", function() {
-            _this.play(_this.currentSongId);
+        playButton.addEventListener("click", function() {
+            _this.play(_this.songIndex);
         });  
 
-        // this.stopButton.addEventListener("click", function() {
-        //     _this.stop(_this.currentSongId);
-        // });
+        stopButton.addEventListener("click", function() {
+            _this.stop(_this.songIndex);
+        });
         
-        // this.nextButton.addEventListener("click", function() {
-        //     _this.next(_this.currentSongId);
-        // });
+        nextButton.addEventListener("click", function() {
+            _this.next(_this.songIndex);
+        });
 
-        // this.previousButton.addEventListener("click", function() {
-        //      _this.previous(_this.currentSongId);
-        // }); 
+        previousButton.addEventListener("click", function() {
+             _this.previous(_this.songIndex);
+        });  
 
-        this.search('Lady Gaga'); //loads a search searching for keyword 'Prince' when you first load
+        searchButton.addEventListener("click", function() {
+            _this.search(searchInput.value);
+        });  
+
+        this.search('mixedtape'); //loads a search searching for keyword 'mixedtape' when you first load
     },
 
-    // render: function(){
-
-    // },
+    render: function(){
+        template.innerHtml();
+    },
 
     search: function(searchTerm){
         var self = this
         SC.get('/tracks', {
             q: searchTerm
         }).then(function(tracks) {
-            self.songs = tracks.map(function(item){
-                return item.id
-            });
+            self.songs = tracks //connected our songs to soundcloud's tracks
             console.log(self.songs); //self is only within this scope
         });
         
+    },
+
+    getsongIndex: function() {
+        return this.songs[this.songIndex].id;
     },
         
     stream: function(id){
         console.log(id);
         var self = this;  //self is destroyed after the function, but it connects to this
         SC.stream('/tracks/' + id).then(function(player){
-            self.player = player //makes soundcloud player available for other functions
-            console.log(player)
+            self.player = player //makes soundcloud player available for other functions    
             player.play();
+            console.log(player);
         });    
     }, 
 
     play: function(id) {
-        console.log(id);
-        this.stream(id);
+        if (!id) {
+            id = this.getsongIndex();
+        }
+        this.stream(id);  //JukeBox.play(JukeBox.songs[JukeBox.songIndex]);
+        this.songArtWorkImage.src = this.songs[this.songIndex].artwork_url || "";
+        this.songTitle.innerHTML = this.songs[this.songIndex].title || ""; //title is text so its innertext or innerhtml
     },
   
     stop: function() {
-        this.player.pause(); //Soundcloud player
-    //     this.previousTime = this.video.currentTime;
-    //     this.video.pause();
+        this.player.pause(); //Soundcloud player JukeBox.stop(JukeBox.songs[1]);
     },
  
     next: function() {     
-        console.log("B4",this.currentSongId); 
-        if(this.currentSongId >= this.songs.length) {          
-            this.currentSongId = 0;
+        console.log("Before",this.songIndex); 
+        if(this.songIndex >= this.songs.length) {          
+            this.songIndex = 0;
         } else {
-            this.currentSongId = this.currentSongId + 1;
+            this.songIndex = this.songIndex + 1;
         }
-        console.log("After",this.currentSongId); 
-        this.play(this.songs[this.currentSongId]); //same as JukeBox.play()
+        console.log("After",this.songIndex); 
+        this.play(this.getsongIndex()); //same as JukeBox.play()
     },  
 
-    // previous: function() {
-    //     if(this.currentSongId <= 0) {
-    //         this.currentSongId = 0;
-    //     } else{
-    //         this.currentSongId = this.currentSongId - 1;
-    // }
+    previous: function() {
+        console.log("B4",this.songIndex);
+        if(this.songIndex <= 0) {
+            this.songIndex = 0;
+        } else{
+            this.songIndex = this.songIndex - 1;
+        }
+        console.log("After",this.songIndex); 
+        this.play(this.getsongIndex());
+    }
 }
 
 //once document is ready, call JukeBox init function. Handler when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", function(event) {
-  // searchInput.addEventListener('keyup', function(evt){
-  //   search(searchInput.value);
-  // })
+document.addEventListener("DOMContentLoaded", function(event) {  
   JukeBox.init();
 });
 
