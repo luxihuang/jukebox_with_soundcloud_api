@@ -1,10 +1,11 @@
-.container {
-	margin-left: 5%;
-	margin-right: 5%;
-}
+body{
+	background-image: url("./cloud.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}	
 
-.jukebox_buttons{
-	margin-left: 40%;
+.container {
+	magin: 0 auto;
 }
 
 h1{
@@ -13,3 +14,22 @@ h1{
 	margin-bottom: 1%;
 }
 
+.jukebox_buttons{
+	margin-left: 40%;
+}
+
+.JukeBox{
+	margin-top: 1%;
+}
+
+.css-artwork{
+	margin: 0 auto;
+}
+
+.css-audio-title{
+	text-align: center;	
+}
+
+.playlist{
+	margin-top: 1%;
+}
