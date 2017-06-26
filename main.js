@@ -43,7 +43,8 @@ var JukeBox = {
     },
 
     render: function(){
-        template.innerHtml();
+        this.songArtWorkImage.src = this.songs[this.songIndex].artwork_url || "";
+        this.songTitle.innerHTML = this.songs[this.songIndex].title || ""; //title is text so its innertext or innerhtml
     },
 
     search: function(searchTerm){
@@ -76,8 +77,7 @@ var JukeBox = {
             id = this.getsongIndex();
         }
         this.stream(id);  //JukeBox.play(JukeBox.songs[JukeBox.songIndex]);
-        this.songArtWorkImage.src = this.songs[this.songIndex].artwork_url || "";
-        this.songTitle.innerHTML = this.songs[this.songIndex].title || ""; //title is text so its innertext or innerhtml
+        this.render(id); 
     },
   
     stop: function() {
