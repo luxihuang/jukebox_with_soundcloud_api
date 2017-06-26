@@ -1,6 +1,11 @@
+body{
+	background-image: url("./cloud.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}	
+
 .container {
-	margin-left: 5%;
-	margin-right: 5%;
+	magin: 0 auto;
 }
 
 h1{
@@ -23,4 +28,8 @@ h1{
 
 .css-audio-title{
 	text-align: center;	
+}
+
+.playlist{
+	margin-top: 1%;
 }
