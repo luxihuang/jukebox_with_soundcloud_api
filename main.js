@@ -42,9 +42,30 @@ var JukeBox = {
         this.search('mixedtape'); //loads a search searching for keyword 'mixedtape' when you first load
     },
 
-    render: function(){
+    renderSong: function(){
         this.songArtWorkImage.src = this.songs[this.songIndex].artwork_url || "";
         this.songTitle.innerHTML = this.songs[this.songIndex].title || ""; //title is text so its innertext or innerhtml
+    },
+
+    renderPlayList: function(list) { 
+        var _this = this;
+        var singleSong = document.getElementById('js-each-song');
+        singleSong.innerHTML = ''; //this clears the song list everything you do another search
+
+        var i = 0;
+        list.forEach(function(item){
+            var newSingleSong = document.createElement('li');
+            newSingleSong.innerHTML = item.title; 
+            newSingleSong.classList.add('track');
+            newSingleSong.setAttribute('id', item.id);
+            newSingleSong.setAttribute('index', i);
+            newSingleSong.addEventListener('click', function(){
+                _this.currentSongIndex = newSingleSong.getAttribute('index');
+                _this.play();
+            })
+            singleSong.appendChild(newSingleSong);
+            i++;
+        })
     },
 
     search: function(searchTerm){
@@ -55,7 +76,7 @@ var JukeBox = {
             self.songs = tracks //connected our songs to soundcloud's tracks
             console.log(self.songs); //self is only within this scope
         });
-        
+        self.renderPlayList(self.songs);
     },
 
     getsongIndex: function() {
@@ -77,7 +98,7 @@ var JukeBox = {
             id = this.getsongIndex();
         }
         this.stream(id);  //JukeBox.play(JukeBox.songs[JukeBox.songIndex]);
-        this.render(id); 
+        this.renderSong(id); 
     },
   
     stop: function() {
@@ -116,3 +137,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //for about.html will ahve to type it in
 // run command 'simplehttpserver' when in the specific project folder to do http://localhost:8000/
 
+
+
+    // renderPlayList(){
+    //     var ul = document.getElementById('js-playlist');
+    //     ul.innerHTML = '';
+    //     this.songs.forEach(function(item) {
+    //         ul.innerHTML += '<li>' + item.title + '</li>';    //less flexible because you are rendering every song into the entire parent UL element.  You can't click on the specific element
+    //     })
+    //         console.log(this.songs.length);
+    //     }    
+    // },   

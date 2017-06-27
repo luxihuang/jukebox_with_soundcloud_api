@@ -33,3 +33,8 @@ h1{
 .playlist{
 	margin-top: 1%;
 }
+
+.track.active,
+.track:hover {
+  background: #bcbcbc;
+}
