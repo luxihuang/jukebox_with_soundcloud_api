@@ -1,7 +1,9 @@
-.container {
-	margin-left: 5%;
-	margin-right: 5%;
-}
+body{
+	background-image: url("./cloud.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}	
+
 
 h1{
 	font-size: 40px;
@@ -23,4 +25,14 @@ h1{
 
 .css-audio-title{
 	text-align: center;	
+}
+
+
+.playlist{
+	margin-top: 1%;
+}
+
+.track.active,
+.track:hover {
+  background: #bcbcbc;
 }
