@@ -112,10 +112,15 @@ var JukeBox = {
         this.player.pause(); //Soundcloud player JukeBox.stop(JukeBox.songs[1]);
     },
  
-    shuffle: function(id) {
-        this.play(Math.floor(Math.random(this.songs)*this.songs.length));
-    },
-
+    shuffle: function() {
+        var random = Math.floor(Math.random(this.songs)*this.songs.length).id;
+        while(random === songIndex) {
+            console.log("random equals to songIndex",random,songIndex)
+            random = Math.floor(Math.random(this.songs)*this.songs.length).id;
+            }
+        songIndex = random;
+        this.play(this.getsongIndex());
+   },
 
     next: function() {     
         console.log("Before",this.songIndex); 
