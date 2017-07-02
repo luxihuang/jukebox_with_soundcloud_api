@@ -113,13 +113,14 @@ var JukeBox = {
     },
  
     shuffle: function() {
-        var random = Math.floor(Math.random(this.songs)*this.songs.length).id;
+        var random = Math.floor(Math.random()*this.songs.length);
         while(random === songIndex) {
-            console.log("random equals to songIndex",random,songIndex)
-            random = Math.floor(Math.random(this.songs)*this.songs.length).id;
+            console.log("random equals to songIndex",random,songIndex);
+            random = Math.floor(Math.random()*this.songs.length);
             }
-        songIndex = random;
-        this.play(this.getsongIndex());
+            songIndex = random;
+        
+            this.play(this.getsongIndex());
    },
 
     next: function() {     
