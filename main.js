@@ -69,7 +69,7 @@ var JukeBox = {
             newSingleSong.setAttribute('index', i);
             newSingleSong.addEventListener('click', function(){
                 _this.currentSongIndex = newSingleSong.getAttribute('index');
-                _this.play();
+                _this.play(_this.getsongIndex());;
             })
             singleSong.appendChild(newSingleSong);
             i++;
@@ -116,7 +116,7 @@ var JukeBox = {
 
     shuffle: function() {
         var random = Math.floor(Math.random()*this.songs.length);
-        while(random === this.songIndex) {
+        while(random === this.songIndex) { //while loop is better than for loop because for loop will only run once 
             console.log("random equals to songIndex",random,this.songIndex);
             random = Math.floor(Math.random()*this.songs.length);
             }
