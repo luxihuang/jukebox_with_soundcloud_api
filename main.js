@@ -19,32 +19,36 @@ var JukeBox = {
         var shuffleButton = document.getElementById("js-shuffleButton");
         var muteButton = document.getElementById("js-muteButton");
 
+
         this.songArtWorkImage = document.getElementById("js-audio-artwork");
         this.songTitle = document.getElementById("js-audio-title");
-   
+
         playButton.addEventListener("click", function() {
             _this.play(_this.songIndex);
-        });  
+        });
 
         stopButton.addEventListener("click", function() {
             _this.stop(_this.songIndex);
         });
-        
+
         nextButton.addEventListener("click", function() {
             _this.next(_this.songIndex);
         });
 
+
         previousButton.addEventListener("click", function() {
              _this.previous(_this.songIndex);
-        });  
+        });
 
         shuffleButton.addEventListener("click", function() {
             _this.play(_this.songIndex);
-        }); 
+        });
+
 
         searchButton.addEventListener("click", function() {
             _this.search(searchInput.value);
-        });  
+        });
+
 
         this.search('mixedtape'); //loads a search searching for keyword 'mixedtape' when you first load
     },
@@ -54,7 +58,7 @@ var JukeBox = {
         this.songTitle.innerHTML = this.songs[this.songIndex].title || ""; //title is text so its innertext or innerhtml
     },
 
-    renderPlayList: function(list) { 
+    renderPlayList: function(list) {
         var _this = this;
         var singleSong = document.getElementById('js-each-song');
         singleSong.innerHTML = ''; //this clears the song list everything you do another search
@@ -62,7 +66,7 @@ var JukeBox = {
         var i = 0;
         list.forEach(function(item){
             var newSingleSong = document.createElement('li');
-            newSingleSong.innerHTML = item.title; 
+            newSingleSong.innerHTML = item.title;
             newSingleSong.classList.add('track');
             newSingleSong.setAttribute('id', item.id);
             newSingleSong.setAttribute('index', i);
@@ -73,6 +77,7 @@ var JukeBox = {
             singleSong.appendChild(newSingleSong);
             i++;
         })
+
     },
 
     search: function(searchTerm){
@@ -89,29 +94,34 @@ var JukeBox = {
     getsongIndex: function() {
         return this.songs[this.songIndex].id;
     },
-        
+
+    getsongIndex: function() {
+        return this.songs[this.songIndex].id;
+    },
+
     stream: function(id){
         console.log(id);
         var self = this;  //self is destroyed after the function, but it connects to this
         SC.stream('/tracks/' + id).then(function(player){
-            self.player = player //makes soundcloud player available for other functions    
+            self.player = player //makes soundcloud player available for other functions
             player.play();
             console.log(player);
-        });    
-    }, 
+        });
+    },
 
     play: function(id) {
         if (!id) {
             id = this.getsongIndex();
         }
         this.stream(id);  //JukeBox.play(JukeBox.songs[JukeBox.songIndex]);
-        this.renderSong(id); 
+        this.renderSong(id);
+
     },
-  
+
     stop: function() {
         this.player.pause(); //Soundcloud player JukeBox.stop(JukeBox.songs[1]);
     },
- 
+
     shuffle: function() {
         var random = Math.floor(Math.random()*this.songs.length);
         while(random === songIndex) {
@@ -119,20 +129,20 @@ var JukeBox = {
             random = Math.floor(Math.random()*this.songs.length);
             }
             songIndex = random;
-        
+
             this.play(this.getsongIndex());
    },
 
-    next: function() {     
-        console.log("Before",this.songIndex); 
-        if(this.songIndex >= this.songs.length) {          
+    next: function() {
+        console.log("Before",this.songIndex);
+        if(this.songIndex >= this.songs.length) {
             this.songIndex = 0;
         } else {
             this.songIndex = this.songIndex + 1;
         }
-        console.log("After",this.songIndex); 
+        console.log("After",this.songIndex);
         this.play(this.getsongIndex()); //same as JukeBox.play()
-    },  
+    },
 
     previous: function() {
         console.log("B4",this.songIndex);
@@ -141,13 +151,13 @@ var JukeBox = {
         } else{
             this.songIndex = this.songIndex - 1;
         }
-        console.log("After",this.songIndex); 
+        console.log("After",this.songIndex);
         this.play(this.getsongIndex());
     }
 }
 
 //once document is ready, call JukeBox init function. Handler when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", function(event) {  
+document.addEventListener("DOMContentLoaded", function(event) {
   JukeBox.init();
 });
 
@@ -164,5 +174,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //         ul.innerHTML += '<li>' + item.title + '</li>';    //less flexible because you are rendering every song into the entire parent UL element.  You can't click on the specific element
     //     })
     //         console.log(this.songs.length);
-    //     }    
-    // },   
+    //     }
+    // },

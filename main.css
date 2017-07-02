@@ -4,9 +4,6 @@ body{
 	background-size: cover;
 }	
 
-.container {
-	magin: 0 auto;
-}
 
 h1{
 	font-size: 40px;
@@ -29,6 +26,7 @@ h1{
 .css-audio-title{
 	text-align: center;	
 }
+
 
 .playlist{
 	margin-top: 1%;
