@@ -18,8 +18,6 @@ var JukeBox = {
         var previousButton = document.getElementById("js-previousButton");
         var shuffleButton = document.getElementById("js-shuffleButton");
         var muteButton = document.getElementById("js-muteButton");
-
-
         this.songArtWorkImage = document.getElementById("js-audio-artwork");
         this.songTitle = document.getElementById("js-audio-title");
 
@@ -41,14 +39,13 @@ var JukeBox = {
         });
 
         shuffleButton.addEventListener("click", function() {
-            _this.play(_this.songIndex);
+            _this.shuffle(_this.songIndex);
         });
 
 
         searchButton.addEventListener("click", function() {
             _this.search(searchInput.value);
         });
-
 
         this.search('mixedtape'); //loads a search searching for keyword 'mixedtape' when you first load
     },
@@ -95,10 +92,6 @@ var JukeBox = {
         return this.songs[this.songIndex].id;
     },
 
-    getsongIndex: function() {
-        return this.songs[this.songIndex].id;
-    },
-
     stream: function(id){
         console.log(id);
         var self = this;  //self is destroyed after the function, but it connects to this
@@ -115,7 +108,6 @@ var JukeBox = {
         }
         this.stream(id);  //JukeBox.play(JukeBox.songs[JukeBox.songIndex]);
         this.renderSong(id);
-
     },
 
     stop: function() {
@@ -124,11 +116,11 @@ var JukeBox = {
 
     shuffle: function() {
         var random = Math.floor(Math.random()*this.songs.length);
-        while(random === songIndex) {
-            console.log("random equals to songIndex",random,songIndex);
+        while(random === this.songIndex) {
+            console.log("random equals to songIndex",random,this.songIndex);
             random = Math.floor(Math.random()*this.songs.length);
             }
-            songIndex = random;
+            this.songIndex = random;
 
             this.play(this.getsongIndex());
    },
