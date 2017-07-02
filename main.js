@@ -16,6 +16,9 @@ var JukeBox = {
         var stopButton = document.getElementById("js-stopButton");
         var nextButton = document.getElementById("js-nextButton");
         var previousButton = document.getElementById("js-previousButton");
+        var shuffleButton = document.getElementById("js-shuffleButton");
+        var muteButton = document.getElementById("js-muteButton");
+
         this.songArtWorkImage = document.getElementById("js-audio-artwork");
         this.songTitle = document.getElementById("js-audio-title");
    
@@ -34,6 +37,10 @@ var JukeBox = {
         previousButton.addEventListener("click", function() {
              _this.previous(_this.songIndex);
         });  
+
+        // shuffleButton.addEventListener("click", function() {
+        //      _this.play(_this.songIndex);
+        // });  
 
         searchButton.addEventListener("click", function() {
             _this.search(searchInput.value);
@@ -105,6 +112,10 @@ var JukeBox = {
         this.player.pause(); //Soundcloud player JukeBox.stop(JukeBox.songs[1]);
     },
  
+    shuffle: function() {
+        this.play(Math.floor((Math.random(this.songs))*this.songs.length));
+    },
+
     next: function() {     
         console.log("Before",this.songIndex); 
         if(this.songIndex >= this.songs.length) {          
